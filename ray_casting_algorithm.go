@@ -20,9 +20,7 @@ func rightCross(p1, p2, p3 Point) int {
 		return 1
 	}
 	if p2.Y > p3.Y {
-		tmp := p2
-		p2 = p3
-		p3 = tmp
+		p2, p3 = p3, p2
 	}
 	if p1.Y <= p2.Y || p1.Y >= p3.Y {
 		return 1
