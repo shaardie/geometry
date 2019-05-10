@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-type intItem int
+type intPriorityQueueItem int
 
-func (i intItem) Compare(j PriorityQueueItem) int {
-	return int(i - j.(intItem))
+func (i intPriorityQueueItem) Compare(j PriorityQueueItem) int {
+	return int(i - j.(intPriorityQueueItem))
 }
 
 func TestNewPriorityQueue(t *testing.T) {
@@ -27,21 +27,21 @@ func TestNewPriorityQueue(t *testing.T) {
 		{
 			name: "Single Element",
 			args: args{
-				items: []PriorityQueueItem{intItem(0)},
+				items: []PriorityQueueItem{intPriorityQueueItem(0)},
 			},
 			want: &PriorityQueue{&priorityQueue{
-				priorityQueueItem{intItem(0), 0}},
+				priorityQueueItem{intPriorityQueueItem(0), 0}},
 			},
 		},
 		{
 			name: "Multiple Elements",
 			args: args{
-				items: []PriorityQueueItem{intItem(0), intItem(-1), intItem(1)},
+				items: []PriorityQueueItem{intPriorityQueueItem(0), intPriorityQueueItem(-1), intPriorityQueueItem(1)},
 			},
 			want: &PriorityQueue{&priorityQueue{
-				priorityQueueItem{intItem(-1), 0},
-				priorityQueueItem{intItem(0), 1},
-				priorityQueueItem{intItem(1), 2}},
+				priorityQueueItem{intPriorityQueueItem(-1), 0},
+				priorityQueueItem{intPriorityQueueItem(0), 1},
+				priorityQueueItem{intPriorityQueueItem(1), 2}},
 			},
 		},
 	}
@@ -62,8 +62,8 @@ func TestPriorityQueue_Pop(t *testing.T) {
 	}{
 		{
 			name:  "simple",
-			items: []PriorityQueueItem{intItem(2), intItem(1), intItem(0)},
-			want:  intItem(0),
+			items: []PriorityQueueItem{intPriorityQueueItem(2), intPriorityQueueItem(1), intPriorityQueueItem(0)},
+			want:  intPriorityQueueItem(0),
 		},
 	}
 	for _, tt := range tests {
@@ -85,23 +85,23 @@ func TestPriorityQueue_Push(t *testing.T) {
 	}{
 		{
 			name:  "lower",
-			item:  intItem(-1),
-			items: []PriorityQueueItem{intItem(0)},
+			item:  intPriorityQueueItem(-1),
+			items: []PriorityQueueItem{intPriorityQueueItem(0)},
 			want: &PriorityQueue{
 				&priorityQueue{
-					priorityQueueItem{intItem(-1), 0},
-					priorityQueueItem{intItem(0), 1},
+					priorityQueueItem{intPriorityQueueItem(-1), 0},
+					priorityQueueItem{intPriorityQueueItem(0), 1},
 				},
 			},
 		},
 		{
 			name:  "higher",
-			item:  intItem(1),
-			items: []PriorityQueueItem{intItem(0)},
+			item:  intPriorityQueueItem(1),
+			items: []PriorityQueueItem{intPriorityQueueItem(0)},
 			want: &PriorityQueue{
 				&priorityQueue{
-					priorityQueueItem{intItem(0), 0},
-					priorityQueueItem{intItem(1), 1},
+					priorityQueueItem{intPriorityQueueItem(0), 0},
+					priorityQueueItem{intPriorityQueueItem(1), 1},
 				},
 			},
 		},

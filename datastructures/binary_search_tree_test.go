@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-type intItem int
+type intBinarySearchTreeItem int
 
-func (i intItem) Compare(j BinarySearchTreeItem) int {
-	return int(i - j.(intItem))
+func (i intBinarySearchTreeItem) Compare(j BinarySearchTreeItem) int {
+	return int(i - j.(intBinarySearchTreeItem))
 }
 
 func TestBinarySearchTree_Min(t *testing.T) {
@@ -22,11 +22,11 @@ func TestBinarySearchTree_Min(t *testing.T) {
 		fields fields
 		want   BinarySearchTreeItem
 	}{
-		{"Root", fields{Item: intItem(0)}, intItem(0)},
+		{"Root", fields{Item: intBinarySearchTreeItem(0)}, intBinarySearchTreeItem(0)},
 		{
 			"Left",
-			fields{Item: intItem(0), Left: &BinarySearchTree{Item: intItem(-1)}},
-			intItem(-1),
+			fields{Item: intBinarySearchTreeItem(0), Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)}},
+			intBinarySearchTreeItem(-1),
 		},
 	}
 	for _, tt := range tests {
@@ -54,11 +54,11 @@ func TestBinarySearchTree_Max(t *testing.T) {
 		fields fields
 		want   BinarySearchTreeItem
 	}{
-		{"Root", fields{Item: intItem(0)}, intItem(0)},
+		{"Root", fields{Item: intBinarySearchTreeItem(0)}, intBinarySearchTreeItem(0)},
 		{
 			"Right",
-			fields{Item: intItem(0), Right: &BinarySearchTree{Item: intItem(1)}},
-			intItem(1),
+			fields{Item: intBinarySearchTreeItem(0), Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)}},
+			intBinarySearchTreeItem(1),
 		},
 	}
 	for _, tt := range tests {
@@ -92,60 +92,60 @@ func TestBinarySearchTree_Insert(t *testing.T) {
 	}{
 		{
 			name: "Empty",
-			args: args{intItem(0)},
-			want: &BinarySearchTree{Item: intItem(0)},
+			args: args{intBinarySearchTreeItem(0)},
+			want: &BinarySearchTree{Item: intBinarySearchTreeItem(0)},
 		},
 		{
 			name:   "Same twice",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(0)},
-			want:   &BinarySearchTree{Item: intItem(0)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(0)},
+			want:   &BinarySearchTree{Item: intBinarySearchTreeItem(0)},
 		},
 		{
 			name:   "Insert left",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(-1)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(-1)},
 			want: &BinarySearchTree{
-				Item: intItem(0),
-				Left: &BinarySearchTree{Item: intItem(-1)},
+				Item: intBinarySearchTreeItem(0),
+				Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
 			},
 		},
 		{
 			name:   "Insert right",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(1)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(1)},
 			want: &BinarySearchTree{
-				Item:  intItem(0),
-				Right: &BinarySearchTree{Item: intItem(1)},
+				Item:  intBinarySearchTreeItem(0),
+				Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 			},
 		},
 		{
 			name: "Insert recursive left",
 			fields: fields{
-				Item: intItem(0),
-				Left: &BinarySearchTree{Item: intItem(-1)},
+				Item: intBinarySearchTreeItem(0),
+				Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
 			},
-			args: args{intItem(-2)},
+			args: args{intBinarySearchTreeItem(-2)},
 			want: &BinarySearchTree{
-				Item: intItem(0),
+				Item: intBinarySearchTreeItem(0),
 				Left: &BinarySearchTree{
-					Item: intItem(-1),
-					Left: &BinarySearchTree{Item: intItem(-2)},
+					Item: intBinarySearchTreeItem(-1),
+					Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-2)},
 				},
 			},
 		},
 		{
 			name: "Insert recursive right",
 			fields: fields{
-				Item:  intItem(0),
-				Right: &BinarySearchTree{Item: intItem(1)},
+				Item:  intBinarySearchTreeItem(0),
+				Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 			},
-			args: args{intItem(2)},
+			args: args{intBinarySearchTreeItem(2)},
 			want: &BinarySearchTree{
-				Item: intItem(0),
+				Item: intBinarySearchTreeItem(0),
 				Right: &BinarySearchTree{
-					Item:  intItem(1),
-					Right: &BinarySearchTree{Item: intItem(2)},
+					Item:  intBinarySearchTreeItem(1),
+					Right: &BinarySearchTree{Item: intBinarySearchTreeItem(2)},
 				},
 			},
 		},
@@ -182,36 +182,36 @@ func TestBinarySearchTree_Search(t *testing.T) {
 	}{
 		{
 			name: "Empty",
-			args: args{intItem(0)},
+			args: args{intBinarySearchTreeItem(0)},
 		},
 		{
 			name:   "Root",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(0)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(0)},
 			want:   true,
 		},
 		{
 			name:   "Not present",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(1)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(1)},
 			want:   false,
 		},
 		{
 			name: "Found left",
 			fields: fields{
-				Item: intItem(0),
-				Left: &BinarySearchTree{Item: intItem(-1)},
+				Item: intBinarySearchTreeItem(0),
+				Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
 			},
-			args: args{intItem(-1)},
+			args: args{intBinarySearchTreeItem(-1)},
 			want: true,
 		},
 		{
 			name: "Found right",
 			fields: fields{
-				Item:  intItem(0),
-				Right: &BinarySearchTree{Item: intItem(1)},
+				Item:  intBinarySearchTreeItem(0),
+				Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 			},
-			args: args{intItem(1)},
+			args: args{intBinarySearchTreeItem(1)},
 			want: true,
 		},
 	}
@@ -247,93 +247,93 @@ func TestBinarySearchTree_Delete(t *testing.T) {
 	}{
 		{
 			name: "Empty",
-			args: args{intItem(0)},
+			args: args{intBinarySearchTreeItem(0)},
 			want: false,
 		},
 		{
 			name:   "Root",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(0)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(0)},
 			want:   true,
 			after:  &BinarySearchTree{},
 		},
 		{
 			name:   "Not found left",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(-1)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(-1)},
 			want:   false,
-			after:  &BinarySearchTree{Item: intItem(0)},
+			after:  &BinarySearchTree{Item: intBinarySearchTreeItem(0)},
 		},
 		{
 			name:   "Not found right",
-			fields: fields{Item: intItem(0)},
-			args:   args{intItem(1)},
+			fields: fields{Item: intBinarySearchTreeItem(0)},
+			args:   args{intBinarySearchTreeItem(1)},
 			want:   false,
-			after:  &BinarySearchTree{Item: intItem(0)},
+			after:  &BinarySearchTree{Item: intBinarySearchTreeItem(0)},
 		},
 		{
 			name: "delete Left",
 			fields: fields{
-				Item: intItem(0),
-				Left: &BinarySearchTree{Item: intItem(-1)},
+				Item: intBinarySearchTreeItem(0),
+				Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
 			},
-			args: args{intItem(-1)},
+			args: args{intBinarySearchTreeItem(-1)},
 			want: true,
 			after: &BinarySearchTree{
-				Item: intItem(0),
+				Item: intBinarySearchTreeItem(0),
 				Left: &BinarySearchTree{},
 			},
 		},
 		{
 			name: "delete Right",
 			fields: fields{
-				Item:  intItem(0),
-				Right: &BinarySearchTree{Item: intItem(1)},
+				Item:  intBinarySearchTreeItem(0),
+				Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 			},
-			args: args{intItem(1)},
+			args: args{intBinarySearchTreeItem(1)},
 			want: true,
 			after: &BinarySearchTree{
-				Item:  intItem(0),
+				Item:  intBinarySearchTreeItem(0),
 				Right: &BinarySearchTree{},
 			},
 		},
 		{
 			name: "delete with left arm",
 			fields: fields{
-				Item: intItem(0),
-				Left: &BinarySearchTree{Item: intItem(-1)},
+				Item: intBinarySearchTreeItem(0),
+				Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
 			},
-			args: args{intItem(0)},
+			args: args{intBinarySearchTreeItem(0)},
 			want: true,
 			after: &BinarySearchTree{
-				Item: intItem(-1),
+				Item: intBinarySearchTreeItem(-1),
 			},
 		},
 		{
 			name: "delete with right arm",
 			fields: fields{
-				Item:  intItem(0),
-				Right: &BinarySearchTree{Item: intItem(1)},
+				Item:  intBinarySearchTreeItem(0),
+				Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 			},
-			args: args{intItem(0)},
+			args: args{intBinarySearchTreeItem(0)},
 			want: true,
 			after: &BinarySearchTree{
-				Item: intItem(1),
+				Item: intBinarySearchTreeItem(1),
 			},
 		},
 		{
 			name: "delete with arms",
 			fields: fields{
-				Item:  intItem(0),
-				Left:  &BinarySearchTree{Item: intItem(-1)},
-				Right: &BinarySearchTree{Item: intItem(1)},
+				Item:  intBinarySearchTreeItem(0),
+				Left:  &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
+				Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 			},
-			args: args{intItem(0)},
+			args: args{intBinarySearchTreeItem(0)},
 			want: true,
 			after: &BinarySearchTree{
-				Item: intItem(1),
+				Item: intBinarySearchTreeItem(1),
 				Left: &BinarySearchTree{
-					Item: intItem(-1),
+					Item: intBinarySearchTreeItem(-1),
 				},
 				Right: &BinarySearchTree{},
 			},
