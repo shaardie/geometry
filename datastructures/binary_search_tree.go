@@ -64,9 +64,9 @@ func (bst *BinarySearchTree) Insert(item BinarySearchTreeItem) {
 }
 
 // Search for an item in the Binary Search Tree
-func (bst *BinarySearchTree) Search(item BinarySearchTreeItem) bool {
+func (bst *BinarySearchTree) Search(item BinarySearchTreeItem) *BinarySearchTree {
 	if bst.Item == nil {
-		return false
+		return nil
 	}
 	current := bst
 	for current != nil {
@@ -78,10 +78,10 @@ func (bst *BinarySearchTree) Search(item BinarySearchTreeItem) bool {
 			current = current.Right
 			continue
 		}
-		return true
+		return current
 	}
 	// Not in the tree
-	return false
+	return nil
 }
 
 // Delete an item from the Binary Search Tree

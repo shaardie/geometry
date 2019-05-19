@@ -178,7 +178,7 @@ func TestBinarySearchTree_Search(t *testing.T) {
 		name   string
 		fields fields
 		args   args
-		want   bool
+		want   *BinarySearchTree
 	}{
 		{
 			name: "Empty",
@@ -188,13 +188,13 @@ func TestBinarySearchTree_Search(t *testing.T) {
 			name:   "Root",
 			fields: fields{Item: intBinarySearchTreeItem(0)},
 			args:   args{intBinarySearchTreeItem(0)},
-			want:   true,
+			want:   &BinarySearchTree{Item: intBinarySearchTreeItem(0)},
 		},
 		{
 			name:   "Not present",
 			fields: fields{Item: intBinarySearchTreeItem(0)},
 			args:   args{intBinarySearchTreeItem(1)},
-			want:   false,
+			want:   nil,
 		},
 		{
 			name: "Found left",
@@ -203,7 +203,7 @@ func TestBinarySearchTree_Search(t *testing.T) {
 				Left: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
 			},
 			args: args{intBinarySearchTreeItem(-1)},
-			want: true,
+			want: &BinarySearchTree{Item: intBinarySearchTreeItem(-1)},
 		},
 		{
 			name: "Found right",
@@ -212,7 +212,7 @@ func TestBinarySearchTree_Search(t *testing.T) {
 				Right: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 			},
 			args: args{intBinarySearchTreeItem(1)},
-			want: true,
+			want: &BinarySearchTree{Item: intBinarySearchTreeItem(1)},
 		},
 	}
 	for _, tt := range tests {
